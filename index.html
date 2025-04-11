@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thadishetty Jewellers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .rate {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thadishetty Jewellers</h1>
+  <div class="rate"><span>Gold 1 gram (INR)</span><span id="gold"></span></div>
+  <div class="rate"><span>Gold USD 1 oz</span><span id="goldUsd"></span></div>
+  <div class="rate"><span>$ vs ₹</span><span id="usdInr"></span></div>
+
+  <script>
+    async function fetchRates() {
+      try {
+        const response = await fetch("https://bcast.capsgold.net:4768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/capsgoldTelangana");
+        const text = await response.text();
+        const lines = text.trim().split("\n");
+
+        let gold = "--", goldUsd = "--", usdInr = "--";
+
+        lines.forEach(line => {
+          const parts = line.trim().split("\t");
+          if (parts.length >= 4) {
+            const index = parts[0].trim();
+            const rate = parts[2].trim();
+
+            if (index === "990") gold = rate;
+            if (index === "994") goldUsd = rate;
+            if (index === "996") usdInr = rate;
+          }
+        });
+
+        document.getElementById("gold").textContent = gold;
+        document.getElementById("goldUsd").textContent = goldUsd;
+        document.getElementById("usdInr").textContent = usdInr;
+      } catch (e) {
+        console.error("Error fetching rates:", e);
+      }
+    }
+
+    fetchRates();
+    setInterval(fetchRates, 1000); // refresh every second
+  </script>
+</body>
+</html>
