@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TNS Gold</title>
+  <title>Radha Krishna Jewellers</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,9 +13,16 @@
       border: 1px solid #ccc;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #fefefe;
     }
     h1 {
       text-align: center;
+      margin-bottom: 20px;
+    }
+    .banner {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
     .rate {
       display: flex;
@@ -23,13 +30,20 @@
       padding: 10px 0;
       border-bottom: 1px solid #eee;
     }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
-  <h1>TNS Gold</h1>
+  <h1>Radha Krishna Jewellers</h1>
+  <img src="image.png" alt="Radha Krishna Banner" class="banner">
   <div class="rate"><span>Gold 1 gram (INR)</span><span id="gold"></span></div>
   <div class="rate"><span>Gold USD 1 oz</span><span id="goldUsd"></span></div>
   <div class="rate"><span>$ vs ₹</span><span id="usdInr"></span></div>
+  <div class="footer">Proprietor: Thadishetty Narsimha</div>
 
   <script>
     async function fetchRates() {
