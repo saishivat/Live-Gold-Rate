@@ -40,8 +40,8 @@
 <body>
   <h1>Radha Krishna Jewellers</h1>
   <img src="image.png" alt="Radha Krishna Banner" class="banner">
-  <div class="rate"><span>Gold 1 gram (INR)</span><span id="gold"></span></div>
-  <div class="rate"><span>Gold USD 1 oz</span><span id="goldUsd"></span></div>
+  <div class="rate"><span>బంగారం 10 గ్రాములు</span><span id="gold"></span></div>
+  <div class="rate"><span>Gold 1 oz</span><span id="goldUsd"></span></div>
   <div class="rate"><span>$ vs ₹</span><span id="usdInr"></span></div>
   <div class="footer">Proprietor: Thadishetty Narsimha (9440469738)</div>
 
@@ -60,8 +60,12 @@
             const index = parts[0].trim();
             const rate = parts[2].trim();
 
-            if (index === "990") gold = rate;
-            if (index === "994") goldUsd = rate;
+            if (index === "990") {
+              const value = parseFloat(rate.replace(/,/g, "")) * 10;
+              gold ="Rs "+ value.toLocaleString("en-IN", { maximumFractionDigits: 0 });
+              }
+
+            if (index === "994") goldUsd = "$ "+rate;
             if (index === "996") usdInr = rate;
           }
         });
